@@ -1,0 +1,25 @@
+## 1. 配置系统允许启动NFS Client
+  修改文件： /etc/rc.conf
+'''
+  #enable NFS clients
+  nfs_client_enable="YES"
+  #enable locking
+  rpc_lockd_enable="YES"
+  rpc_statd_enable="YES"
+'''
+## 2. 客户机启动时自动加载远程文件系统
+  修改文件： /etc/fstab
+'''
+  server:\pathtoshare \pathto\mountpoint  nfs rw  0 0
+'''
+
+## 3. 客户机用户设置，可使客户机对共享目录具有读写权限
+  # 查阅NFS Server共享目录的用户
+  # 在客户机建立相应的用户
+  '''
+    pw useradd -n 用户名 -u 用户ID
+  '''
+  # 视需要修正用户的组
+  '''
+    pw groupmod 组名称 -m 用户名
+  '''
