@@ -11,3 +11,14 @@ config interface 6pe
 config interface 'wan6'
         option ifname '@6pe'
         option proto 'dhcpv6'
+
+
+default gateway
+ip -6 route | grep "default from"
+正常的话应该得到类似 default from (ipv6 range) via (gateway) dev (intf) proto static metric 512
+查看网关地址和设备
+ip -6 r add default via (gateway) dev (intf)
+
+添加Nat
+ip6tables -t nat -A POSTROUTING -O (intf) -j MASQUERAD
+
